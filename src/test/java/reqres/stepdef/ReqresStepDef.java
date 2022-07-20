@@ -10,6 +10,7 @@ import reqres.api.ReqresApi;
 import reqres.response.ReqresResponse;
 import java.io.File;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 public class ReqresStepDef {
 
@@ -57,5 +58,31 @@ public class ReqresStepDef {
     public void responseBodyShouldContainNameAnd(String name, String job) {
         SerenityRest.then().body(ReqresResponse.NAME, equalTo(name));
         SerenityRest.then().body(ReqresResponse.JOB, equalTo(job));
+    }
+
+    @Given("Put update user with id {string} valid json file")
+    public void putUpdateUserWithValidJsonFile(String idUser) {
+        File jsonFiles = new File(ReqresApi.DIR+"/src/test/resources/json/UpdateUser.json");
+        reqresApi.putUpdateUser(jsonFiles, idUser);
+    }
+
+    @When("Send request put update user")
+    public void sendRequestPutUpdateUser() {
+        SerenityRest.when().put(reqresApi.PUT_UPDATE_USER);
+    }
+
+    @Given("Delete user with id {string}")
+    public void deleteUserWithParameter(String idUser) {
+        reqresApi.deleteUser(idUser);
+    }
+
+    @When("Send request delete user")
+    public void sendRequestDeleteUser() {
+        SerenityRest.when().delete(reqresApi.DELETE_USER);
+    }
+
+    @Then("Status code should be {int}")
+    public void statusCodeShouldBe(int statusCode) {
+        SerenityRest.then().statusCode(statusCode);
     }
 }

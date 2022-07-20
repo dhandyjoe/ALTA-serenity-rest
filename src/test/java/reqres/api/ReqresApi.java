@@ -13,6 +13,8 @@ public class ReqresApi {
     public static final String DIR = System.getProperty("user.dir");
     public static String GET_LIST_USER = URL+"api/users?page={page}";
     public static String POST_CREATE_USER = URL+"api/users";
+    public static String PUT_UPDATE_USER = URL+"api/users/{id}";
+    public static String DELETE_USER = URL+"api/users/{id}";
 
     @Step("Get list user")
     public void getListUser(String page) {
@@ -28,13 +30,16 @@ public class ReqresApi {
     }
 
     @Step("Put update user")
-    public void updateUser() {
-
+    public void putUpdateUser(File json, String idUser) {
+        SerenityRest.given()
+                .pathParam("id", idUser)
+                .contentType(ContentType.JSON)
+                .body(json);
     }
 
     @Step("Delete user")
-    public void deleteUser(String page) {
+    public void deleteUser(String idUser) {
         SerenityRest.given()
-                .pathParam("page", page);
+                .pathParam("id", idUser);
     }
 }

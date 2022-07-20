@@ -19,15 +19,20 @@ Feature: Request to API Reqres
     And Response body should contain name "DhandyJoe" and "QA Engineer"
 
   @regression
-  Scenario: Put update user
-    Given Put update user with valid json file
+  Scenario Outline: Put update user
+    Given Put update user with id "<id>" valid json file
     When Send request put update user
     Then Status coded should be 200 OK
     And Response body should contain name "DhandyJoe-Updated" and "QA Engineer"
+    Examples:
+    |id   |
+    |1    |
 
   @regression
-  Scenario: Delete user
-    Given Delete user with parameter "<parameter>"
+  Scenario Outline: Delete user
+    Given Delete user with id "<id>"
     When Send request delete user
     Then Status code should be 204
-    And Response body should contain name "DhandyJoe" and "QA Engineer"
+    Examples:
+    |id   |
+    |1    |
