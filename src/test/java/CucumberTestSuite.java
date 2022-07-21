@@ -6,6 +6,6 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         plugin = {"pretty"},
         features = "classpath:features/reqres"
-//        tags = "@smoke"
+//        tags = "@smoke or @regression" // kalau mau 2 tag / lebih
 )
 public class CucumberTestSuite {}

@@ -3,7 +3,6 @@ package reqres.api;
 import io.restassured.http.ContentType;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Step;
-import org.jruby.RubyProcess;
 
 import java.io.File;
 
@@ -11,6 +10,8 @@ public class ReqresApi {
 
     public static final String URL = "https://reqres.in/";
     public static final String DIR = System.getProperty("user.dir");
+    public static final String JSON_FILE = DIR+"/src/test/resources/json/";
+
     public static String GET_LIST_USER = URL+"api/users?page={page}";
     public static String POST_CREATE_USER = URL+"api/users";
     public static String PUT_UPDATE_USER = URL+"api/users/{id}";
