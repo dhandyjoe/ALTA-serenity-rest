@@ -35,9 +35,9 @@ public class PutStepDef {
         SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(jsonFile));
     }
 
-    @Given("Put update user with id {string} invalid json file")
+    @Given("Put update user with id {string} name key only json file")
     public void putUpdateUserWithIdInvalidJsonFile(String idUser) {
-        File jsonFiles = new File(ReqresApi.DIR+"/src/test/resources/json/requestbody/InvalidUpdateUser.json");
+        File jsonFiles = new File(ReqresApi.DIR+"/src/test/resources/json/requestbody/PutNameOnlyUpdateUser.json");
         reqresApi.putUpdateUser(jsonFiles, idUser);
     }
 
@@ -46,9 +46,26 @@ public class PutStepDef {
         SerenityRest.then().body(ReqresResponse.NAME, equalTo(firstName));
     }
 
-    @And("Put update user assert invalid json validation")
+    @And("Put update user assert name key only json validation")
     public void putUpdateUserAssertInvalidJsonValidation() {
-        File jsonFile = new File(ReqresApi.JSON_FILE+"/validation/PutInvalidUpdateUserJsonValidation.json");
+        File jsonFile = new File(ReqresApi.JSON_FILE+"/validation/PutNameKeyUpdateUserJsonValidation.json");
+        SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(jsonFile));
+    }
+
+    @Given("Put update user with id {string} job key only json file")
+    public void putUpdateUserWithIdJobKeyOnlyJsonFile(String idUser) {
+        File jsonFiles = new File(ReqresApi.DIR+"/src/test/resources/json/requestbody/PutJobOnlyUpdateUser.json");
+        reqresApi.putUpdateUser(jsonFiles, idUser);
+    }
+
+    @And("Response body should contain job {string}")
+    public void responseBodyShouldContainJob(String job) {
+        SerenityRest.then().body(ReqresResponse.JOB, equalTo(job));
+    }
+
+    @And("Put update user assert job key only json validation")
+    public void putUpdateUserAssertJobKeyOnlyJsonValidation() {
+        File jsonFile = new File(ReqresApi.JSON_FILE+"/validation/PutJobKeyUpdateUserJsonValidation.json");
         SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(jsonFile));
     }
 }
